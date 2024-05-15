@@ -11,6 +11,7 @@ import glob
 import sys
 from keras import metrics
 from .loss_func import *
+from keras import losses
 
 def find_latest_checkpoint(checkpoints_path, fail_safe=True):
 
@@ -125,6 +126,8 @@ def train(model,
                 loss_k = DiceLoss()
             elif loss_func == 'dicebce':
                 loss_k = DiceBCELoss()
+            elif loss_func == 'cfce':
+                loss_k = losses.CategoricalFocalCrossentropy(alpha=[0.05, 1.0, 1.0])
         else:
             if ignore_zero_class:
                 loss_k = masked_categorical_crossentropy
