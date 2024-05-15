@@ -35,7 +35,10 @@ def train_action(command_parser):
     parser.add_argument("--steps_per_epoch", type=int, default=512)
     parser.add_argument("--val_steps_per_epoch", type=int, default=512)
     parser.add_argument("--optimizer_name", type=str, default="adam")
-
+    parser.add_argument('--ignore_zero_class', action='store_true')
+    parser.add_argument('--choose_loss_func', action='store_true')
+    parser.add_argument("--loss_func", type=str, default=None)
+    
     def action(args):
         return train(model=args.model_name,
                      train_images=args.train_images,
@@ -55,7 +58,11 @@ def train_action(command_parser):
                      load_weights=args.load_weights,
                      steps_per_epoch=args.steps_per_epoch,
                      val_steps_per_epoch=args.val_steps_per_epoch,
-                     optimizer_name=args.optimizer_name)
+                     optimizer_name=args.optimizer_name,
+                     ignore_zero_class=args.ignore_zero_class,
+                     choose_loss_func=args.choose_loss_func,
+                     loss_func=args.loss_func,
+                    )
 
     parser.set_defaults(func=action)
 
