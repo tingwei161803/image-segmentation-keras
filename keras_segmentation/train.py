@@ -115,15 +115,15 @@ def train(model,
 
     if optimizer_name is not None:
         if choose_loss_func:
-            if loss_func = 'focal':
+            if loss_func == 'focal':
                 loss_k = FocalLoss()
-            elif loss_func = 'tversky':
+            elif loss_func == 'tversky':
                 loss_k = TverskyLoss()
-            elif loss_func = 'focaltversky':
+            elif loss_func == 'focaltversky':
                 loss_k = FocalTverskyLoss()
-            elif loss_func = 'dice':
+            elif loss_func == 'dice':
                 loss_k = DiceLoss()
-            elif loss_func = 'dicebce':
+            elif loss_func == 'dicebce':
                 loss_k = DiceBCELoss()
         else:
             if ignore_zero_class:
