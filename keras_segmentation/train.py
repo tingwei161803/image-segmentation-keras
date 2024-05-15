@@ -197,12 +197,15 @@ def train(model,
         callbacks = []
 
     if not validate:
-        model.fit(train_gen, steps_per_epoch=steps_per_epoch,
+        history = model.fit(train_gen, steps_per_epoch=steps_per_epoch,
                   epochs=epochs, callbacks=callbacks, initial_epoch=initial_epoch)
     else:
-        model.fit(train_gen,
+        history = model.fit(train_gen,
                   steps_per_epoch=steps_per_epoch,
                   validation_data=val_gen,
                   validation_steps=val_steps_per_epoch,
                   epochs=epochs, callbacks=callbacks,
                   use_multiprocessing=gen_use_multiprocessing, initial_epoch=initial_epoch)
+    with open(f'{checkpoints_path}_history.json', 'w') as json_file:
+        json.dump(history.history, json_file)
+    return history
