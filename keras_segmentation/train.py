@@ -10,7 +10,7 @@ import tensorflow as tf
 import glob
 import sys
 from keras import metrics
-from loss_func import *
+from .loss_func import *
 
 def find_latest_checkpoint(checkpoints_path, fail_safe=True):
 
