@@ -33,6 +33,7 @@ def train_action(command_parser):
     parser.add_argument('--auto_resume_checkpoint', action='store_true')
 
     parser.add_argument("--steps_per_epoch", type=int, default=512)
+    parser.add_argument("--val_steps_per_epoch", type=int, default=512)
     parser.add_argument("--optimizer_name", type=str, default="adam")
 
     def action(args):
@@ -53,6 +54,7 @@ def train_action(command_parser):
                      auto_resume_checkpoint=args.auto_resume_checkpoint,
                      load_weights=args.load_weights,
                      steps_per_epoch=args.steps_per_epoch,
+                     val_steps_per_epoch=args.val_steps_per_epoch,
                      optimizer_name=args.optimizer_name)
 
     parser.set_defaults(func=action)
