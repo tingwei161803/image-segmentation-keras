@@ -9,7 +9,7 @@ from keras.callbacks import ModelCheckpoint
 import tensorflow as tf
 import glob
 import sys
-
+from keras import metrics
 def find_latest_checkpoint(checkpoints_path, fail_safe=True):
 
     # This is legacy code, there should always be a "checkpoint" file in your directory
@@ -118,7 +118,7 @@ def train(model,
 
         model.compile(loss=loss_k,
                       optimizer=optimizer_name,
-                      metrics=['accuracy'])
+                      metrics=['accuracy', metrics.MeanIoU(num_classes=3)])
 
     if checkpoints_path is not None:
         config_file = checkpoints_path + "_config.json"
