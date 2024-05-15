@@ -82,6 +82,7 @@ def train(model,
           ignore_zero_class=False,
           choose_loss_func=False,
           loss_func=None,
+          cfce_alpha=0.05,
           optimizer_name='adam',
           do_augment=False,
           augmentation_name="aug_all",
@@ -127,7 +128,7 @@ def train(model,
             elif loss_func == 'dicebce':
                 loss_k = DiceBCELoss()
             elif loss_func == 'cfce':
-                loss_k = losses.CategoricalFocalCrossentropy(alpha=[0.05, 1.0, 1.0])
+                loss_k = losses.CategoricalFocalCrossentropy(alpha=[cfce_alpha, 1.0, 1.0])
         else:
             if ignore_zero_class:
                 loss_k = masked_categorical_crossentropy
