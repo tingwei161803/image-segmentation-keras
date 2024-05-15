@@ -10,6 +10,8 @@ import tensorflow as tf
 import glob
 import sys
 from keras import metrics
+from loss_func import *
+
 def find_latest_checkpoint(checkpoints_path, fail_safe=True):
 
     # This is legacy code, there should always be a "checkpoint" file in your directory
@@ -77,6 +79,8 @@ def train(model,
           val_steps_per_epoch=512,
           gen_use_multiprocessing=False,
           ignore_zero_class=False,
+          choose_loss_func=False,
+          loss_func=None,
           optimizer_name='adam',
           do_augment=False,
           augmentation_name="aug_all",
@@ -110,11 +114,22 @@ def train(model,
         assert val_annotations is not None
 
     if optimizer_name is not None:
-
-        if ignore_zero_class:
-            loss_k = masked_categorical_crossentropy
+        if choose_loss_func:
+            if loss_func = 'focal':
+                loss_k = FocalLoss()
+            elif loss_func = 'tversky':
+                loss_k = TverskyLoss()
+            elif loss_func = 'focaltversky':
+                loss_k = FocalTverskyLoss()
+            elif loss_func = 'dice':
+                loss_k = DiceLoss()
+            elif loss_func = 'dicebce':
+                loss_k = DiceBCELoss()
         else:
-            loss_k = 'categorical_crossentropy'
+            if ignore_zero_class:
+                loss_k = masked_categorical_crossentropy
+            else:
+                loss_k = 'categorical_crossentropy'
 
         model.compile(loss=loss_k,
                       optimizer=optimizer_name,
